@@ -5,9 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Earth treasure DEMO</title>
     <link rel="stylesheet" href="style.css">
-<body>
+<body style="display: grid; place-items: center; text-align: center;">
 
     <h1>Earth treasure</h1>
+
+    <div id="auth-container">
+        <h2>welcome.</h2>
+        <div id="register-form" class="hidden">
+            <input type="text" id="register-name" placeholder="text" autocomplete="off">
+            <input type="password" id="register-password" placeholder="password" autocomplete="off">
+            <button id="register-button">new register.</button>
+            <p>Do you have account? <a href="#" id="show-login">login</a></p>
+        </div>
+        <div id="login-form-main">
+            <input type="text" id="login-name" placeholder="text" autocomplete="off">
+            <input type="password" id="login-password" placeholder="password" autocomplete="off">
+            <button id="login-button-main">login</button>
+            <p>Is it your first time? <a href="#" id="show-register">new register</a></p>
+        </div>
+    </div>
+
+    <div id="login-form" class="hidden">
+        <h2 id="initial-login-title" class="hidden">Input password Please.</h2>
+        <h2 id="intermission-title" class="hidden">Next Item Get pass.</h2>
+        <input type="password" id="password-input" placeholder="password">
+        <button id="login-button">login</button>
+    </div>
+
+    <div id="game-area" class="hidden">
+        <div id="remaining-count">remaining:...quantity</div>
+        <button id="get-item-button">Get Item</button>
+    </div>
+
+    <div id="my-items" class="hidden">
+        <div id="my-items-header">
+            <h2>Get Your Items.</h2>
+        </div>
+    </div>
+    <button id="back-to-top-button">to top</button>
     
 
     <script src="/socket.io/socket.io.js"></script>
