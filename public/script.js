@@ -32,6 +32,58 @@ let loggedInUser = null;
 let allModals = [];
 let myTakenModals = [];
 
+function initializeGame(initialModals, userTakenModalIds) {
+    allModals = initialModals;
+    myTakenModals = allModals.filter(m => userTakenModalIds.includes(m.id));
+    updateRemainingCount();
+    updateMyItemsList();
+}
+function updateMYItemsList() {
+    const headerContainer = myItemsContainer.querySelector('.my-items-header');
+    if(!headerContainer) {
+        console.error('Not found .my-items-header.');
+        return;
+    }
+    let existingGrid = myItemsContainer.querySelector('.items-grid');
+    if(existingGrid) {
+        existingGrid.remove();
+    }
+    const p = myItemsContainer.querySelector('p');
+    if(p) p.remove();
+    if(myTakenModals.length === 0) {
+        const noItemsP = document.createElement('p');
+        noItemsP.textContent = 'item is Not found.';
+        myItemsContainer.appendChild(noItemsP);
+        backToTopButton.classList.add('hidden');
+        return;
+    }
+    backToTopButton.classList.remove('hidden');
+    const itemsGrid = document.createElement('div');
+    myTakenModals.sort((a, b) => a.id - b.id).forEach(modal => {
+        const itemCard = document.createElement('div');
+        itemCard.className('item-card');
+        itemCard.id = 'modal-card-' + modal.id;
+        itemCard.tabIndex = -1;
+        itemCard.innerHTML = `<img src="${modal.image}"><p><${modal.text}></p>`;
+        itemsGrid.appendChild(itemCard);
+    });
+    myItemsContainer.appendChild(itemsGrid);
+}
+function updateRemainingCount() {
+    const remaining = allModals.filter(modal => modal.takenBy === null).length;
+    remainingCountElement.textContent = `remainingCount: ${remaining}`;
+    if(remaining === 0) {
+        getItemButton.disabled = true;
+        getItemButton.textContent = 'finished.';
+    }
+}
+function showIntermissionPasswordForm() {
+    initialLoginTitle.classList.add('hidden');
+    intermissionTitle.classList.remove('hidden');
+    intermissionLoginForm.classList.remove('hidden');
+    passwordInput.focus();
+}
+
 showLoginLink.addEventListener('click', (e) => {
     e.preventDefault();
     registerForm.classList.add('hidden');
@@ -94,6 +146,9 @@ socket.on('loginResult', (result) => {
         authContainer.classList.add('hidden');
         gameArea.classList.remove('hidden');
         myItemsContainer.classList.remove('hidden');
+        initializeGame(result.initialModals, result.userTakenModalIds);
+    } else {
+        alert(`login Error: ${result.message}`);
     }
 });
 socket.on('passwordResult', (result) => {

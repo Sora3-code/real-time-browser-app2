@@ -11,6 +11,31 @@ app.use(express.static('public'));
 const MAIN_INTERMISSION_PASSWORD = 'pleasure';
 const ALERT_PASSWORD = 'happiness';
 
+let modals = [
+    { id: 0, image: 'images/IMG_2178.jpeg', text: '------- Donald Trump -------<br>---------- the Earth is mankind\'s oldest best friend ----------', takenBy: null, isImportant: true},
+    { id: 1, image: 'images/IMG_2176.jpeg', text: '------- Vladimir Vladimirovich Putin -------<br>---------- kindness are super civilized ----------', takenBy: null, isImportant: true},
+    { id: 2, image: 'images/IMG_2195.jpeg', text: '------- 習近平 -------<br>---------- the key to saving the Earth is<br>the coexistence of civilization and nature ----------', takenBy: null, isImportant: true},
+    { id: 3, image: 'images/IMG_2179.webp4.jpg', text: '------- Volodymyr Zelenskyy -------<br>---------- I want to keep not only my kindness for the future<br>but also my kindness from the future ----------', takenBy: null, isImportant: true},
+    { id: 4, image: 'images/IMG_2185.jpeg5.jpg', text: '------- William, the prince of Wales -------<br>---------- protecting and spinning the future ----------', takenBy: null, isImportant: true},
+    { id: 5, image: 'images/IMG_2180.jpeg', text: '------- Keir Starmer -------<br>---------- Let\'s feel the kindness of the Earth ----------', takenBy: null, isImportant: true},
+    { id: 6, image: 'images/IMG_2181.jpeg', text: '------- Sebastien Lecornu -------<br>---------- Let\s listen to the voice of the Earth ----------', takenBy: null, isImportant: true},
+    { id: 7, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 8, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 10, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 11, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 12, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 13, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 14, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 15, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 16, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 17, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 18, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 19, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+    { id: 20, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
+];
+
+
+
 io.on('connection', (socket) => {
     console.log(`user connected: ${socket.id}`);
     socket.on('register', ({ username, password }) => {
