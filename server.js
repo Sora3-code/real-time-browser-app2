@@ -34,7 +34,41 @@ let modals = [
     { id: 20, image: 'images/', text: '-------  -------<br>----------  ----------', takenBy: null, isImportant: true},
 ];
 
+const USER_FILE = './users.json';
+let users = {};
 
+function loadUsers() {
+    try {
+        if(fs.existsSync(USER_FILE)) {
+            const data = fs.readFileSync(USER_FILE);
+            users = JSON.parse(data);
+            console.log('UsersData loading sccess true.');
+            for(const username in users) {
+                const user = users[username];
+                user.takenModals.forEach(modalId => {
+                    const modal = modals.find(m => m.id === modalId);
+                    if(modal) {
+                        modal.takenBy = username;
+                    }
+                });
+            }
+        } else {
+            console.log('user json not found. make a new data.');
+        }
+    } catch (err) {
+        console.error('user json reloading or parsing Error occurred.');
+    }
+}
+
+function saveUsers() {
+    fs.writeFile(USER_FILE, JSON.stringify(users, null, 2), (err) => {
+        if(err) {
+            console.error('UserInfo saving Error occurred:', err);
+        }
+    });
+}
+
+loadUsers();
 
 io.on('connection', (socket) => {
     console.log(`user connected: ${socket.id}`);
