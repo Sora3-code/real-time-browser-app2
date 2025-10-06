@@ -28,6 +28,12 @@ const getItemButton = document.getElementById('get-item-button');
 const myItemsContainer = document.getElementById('my-items');
 const backToTopButton = document.getElementById('back-to-top-button');
 
+const resetMyModalsButton = document.getElementById('reset-my-modals-button');
+
+const customAlert = document.getElementById('custom-alert');
+const customAlertPasswordInput = document.getElementById('alert-password-input');
+const customAlertLoginButton = document.getElementById('alert-login-button');
+
 let loggedInUser = null;
 let allModals = [];
 let myTakenModals = [];
@@ -132,6 +138,15 @@ backToTopButton.addEventListener('click', () => {
         }
     }, 1000);
 });
+resetMyModalsButton.addEventListener('click', () => {
+    if(loggedInUser && confirm('Are your all modals reset really?')) {
+        socket.emit('resetMyModals', { username: loggedInUser })
+    }
+});
+alertLoginButton.addEventListener('click', () => {
+    const password = alertPasswordInput.value;
+    socket.emit('checkPassword', { password: password, type: 'alert' });
+})
 socket.on('registerResult', (result) => {
     if(result.success) {
         alert('registered. login Please.');
@@ -159,7 +174,7 @@ socket.on('passwordResult', (result) => {
         } else if (result.type === 'alert') {
             customAlert.classList.add('hidden');
             userInfoContainer.classList.remove('hidden');
-            userInfoContainer.scrollTo('smoth');
+            userInfoContainer.scrollIntoView({ behavior: 'smooth' });
             treasureNameInput.focus();
         }
         passwordInput.value = '';
@@ -194,4 +209,8 @@ socket.on('modalTaken', ({ modalId, userId }) => {
         }
         updateRemainingCount();
     }
+});
+socket.on('resetComplete', () => {
+    alert('Reset takenModals. Please reload the page.');
+    location.reload();
 });

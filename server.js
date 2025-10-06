@@ -131,6 +131,21 @@ io.on('connection', (socket) => {
             socket.emit('passwordResult', { success: false });
         }
     });
+    socket.on('resetMyModals', ({ username }) => {
+        const user = users[username];
+        if(user) {
+            console.log(`user ${username} reseting modals.`);
+            const modalIdsToReset = [...user.takenModals];
+            user.takenModals = [];
+            modals.forEach(modal => {
+                if(modalIdsToReset.includes(modal.id)) {
+                    modal.takenBy = null;
+                }
+            });
+            saveUsers();
+            socket.emit('resetComplete');
+        }
+    });
 
 });
 
