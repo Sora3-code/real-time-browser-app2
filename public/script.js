@@ -34,6 +34,16 @@ const customAlert = document.getElementById('custom-alert');
 const customAlertPasswordInput = document.getElementById('alert-password-input');
 const customAlertLoginButton = document.getElementById('alert-login-button');
 
+const userinfoContainer = document.getElementById('user-info-container');
+const treasureNameInput = document.getElementById('treasure-name');
+const userNameInput = document.getElementById('user-name');
+const userAddressInput = document.getElementById('user-address');
+const userAgeInput = document.getElementById('user-age');
+const schoolNameInput = document.getElementById('school-name');
+const schoolTelInput = document.getElementById('school-tel');
+const userDreamInput = document.getElementById('user-dream');
+const submitUserInfoButton = document.getElementById('submit-user-info');
+
 let loggedInUser = null;
 let allModals = [];
 let myTakenModals = [];
@@ -146,7 +156,31 @@ resetMyModalsButton.addEventListener('click', () => {
 alertLoginButton.addEventListener('click', () => {
     const password = alertPasswordInput.value;
     socket.emit('checkPassword', { password: password, type: 'alert' });
-})
+});
+submitUserInfoButton.addEventListener('click', () => {
+    const userInfo = {
+        treasureName: treasureNameInput.value,
+        name: userNameInput.value,
+        address: userAddressInput.value,
+        age: userAgeInput.value,
+        schoolName: schoolNameInput.value,
+        schoolTEL: schoolTelInput.value,
+        dream: userDreamInput.value,
+    };
+    socket.emit('submitUserInfo', (userInfo) => {
+        userinfoContainer.classList.add('hidden');
+        getItemButton.disabled = false;
+        getItemButton.focus();
+    });
+    treasureNameInput.value = '';
+    userNameInput.value = '';
+    userAddressInput.value = '';
+    userAgeInput.value = '';
+    schoolNameInput.value = '';
+    schoolTelInput.value = '';
+    userDreamInput.value = '';
+    alert('thanks to Input. Please take a next modal.');
+});
 socket.on('registerResult', (result) => {
     if(result.success) {
         alert('registered. login Please.');

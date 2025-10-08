@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const http = require('http');
 const { Server } = require("socket.io");
+const { userInfo } = require('os');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -130,6 +131,26 @@ io.on('connection', (socket) => {
         } else {
             socket.emit('passwordResult', { success: false });
         }
+    });
+    socket.on('submitUserInfo', (userInfo) => {
+        console.log('Received userInfo', userInfo);
+        const now = new Date();
+        const timestamp = now.toLocaleString('ja-JP');
+        const logMessage = `
+            user info received: ${timestamp}
+            treasureName: ${userInfo.treasureName}
+            name: ${userInfo.name}
+            address: ${userInfo.address}
+            age: ${userInfo.age}
+            schoolName: ${userInfo.schoolName}
+            schoolTEL: ${userInfo.schoolTEL}
+            dream: ${userInfo.dream}
+        \n`;
+        fs.appendFile('user_info_log', logMessage, (err) => {
+            if(err) {
+                console.error('A error occurred while write to user_info_log.', err);
+            }
+        });
     });
     socket.on('resetMyModals', ({ username }) => {
         const user = users[username];
