@@ -13,6 +13,29 @@ h1 {
     margin-bottom: 30px;
 }
 
+/* --- スタートボタンのスタイル --- */
+#start-container {
+    margin: 30px;
+}
+
+#start-button {
+    padding: 20px 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#start-button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
 /* --- 認証コンテナのスタイル --- */
 #auth-container {
     background: #ffffff;

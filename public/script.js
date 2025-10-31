@@ -7,6 +7,10 @@ let socket = io();  // For local testing
 //-----------------------------------------------------------------------
 // Element Retrieval
 //-----------------------------------------------------------------------
+// start elements
+const startContainer = document.getElementById('start-container');
+const startButton = document.getElementById('start-button');
+
 // Auth elements
 const authContainer = document.getElementById('auth-container');
 const registerForm = document.getElementById('register-form');
@@ -60,6 +64,12 @@ let myTakenModals = [];
 //-----------------------------------------------------------------------
 // Event Listeners
 //-----------------------------------------------------------------------
+
+// --- start button ---
+startButton.addEventListener('click', () => {
+    startContainer.classList.add('hidden');
+    authContainer.classList.remove('hidden');
+});
 
 // --- Auth Form Switching ---
 showLoginLink.addEventListener('click', (e) => {
