@@ -1,24 +1,27 @@
+
+
 body {
     font-family: sans-serif;
     padding: 20px;
     background-color: #f4f7f6; /* 全体の背景色を少し変更 */
     color: #333; /* 文字色を調整 */
 }
+
 .hidden {
     display: none !important; /* !important を追加して確実に非表示にする */
 }
 
 h1 {
     color: #2c3e50; /* h1の文字色 */
-    margin-bottom: 30px;
 }
 
 /* --- スタートボタンのスタイル --- */
 #start-container {
-    margin: 30px;
+    margin-top: 300px;
 }
 
 #start-button {
+    margin-top: 300px;
     padding: 20px 40px;
     font-size: 1.5em;
     font-weight: bold;
@@ -45,6 +48,7 @@ h1 {
     width: 90%;
     max-width: 400px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 影を追加 */
+    margin-top: 200px;
     margin-bottom: 30px;
 }
 
@@ -195,7 +199,7 @@ h1 {
 }
 
 #reset-my-modals-button {
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: #e74c3c;
 }
 
